@@ -1,21 +1,21 @@
 class EventBus {
   constructor() {
+    const handlers = {}
+  }
+
+  public on(title: string, handler: Function) {
+    handler[title].push(handler)
+  }
+
+  public off(title: string, handler: Function) {
 
   }
 
-  public on() {
+  public removeAll(title: string) {
 
   }
 
-  public off() {
-
-  }
-
-  public removeAll(name: string) {
-
-  }
-
-  public emit() {
+  public emit(title: string) {
 
   }
 }
