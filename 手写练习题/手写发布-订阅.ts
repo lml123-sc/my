@@ -1,37 +1,62 @@
 class EventBus {
-  handlers = {};
   constructor() {
     this.handlers = {};
   }
 
-  public on(title: string, handler: Function) {
-    handler[title].push(handler);
+  on(title, handler) {
+    if (!this.handlers[title]) {
+      this.handlers[title] = [];
+    }
+    this.handlers[title].push(handler);
   }
 
-  public off(title: string, handler: Function) {
-    
+  off(title, handler) {
+    if (!this.handlers[title]) {
+      return;
+    }
+    const index = this.handlers[title].indexOf(handler);
+    if (index !== -1) {
+      this.handlers[title].splice(index, 1);
+    }
   }
 
-  public removeAll(title: string) {
-    this.handlers = {};
+  removeAll(title) {
+    // this.handlers = {};
+    if(!this.handlers[title]) {
+      return;
+    }
+    this.handlers[title] = []
   }
 
-  public emit(title: string) {}
+  emit(title, ...args) {
+    console.log('==handlers==', this.handlers[title])
+    this.handlers[title]?.forEach((item) => {
+      // console.log('==item==', item)
+      item(...args);
+    });
+  }
 }
 
 const events = new EventBus();
 
-const start1Handler = () => {
-  console.log("start1");
+const start1Handler = (...e) => {
+  console.log("start1",...e);
+};
+const start2Handler = (e) => {
+  console.log("start2",e);
 };
 
 events.on("start", start1Handler);
+events.on("start", start2Handler);
+events.on("start1", start1Handler);
+events.on("start3", start2Handler);
 
-events.on("start", () => {
-  console.log("start2");
-});
+// events.on("start", () => {
+//   console.log("start2");
+// });
 
-events.off("start", start1Handler);
-events.removeAll("start");
+// events.off("start", start1Handler);
+// events.removeAll("start");
 
-events.emit("start");
+events.emit("start",1,2);
+// events.emit("start1");
