@@ -1,5 +1,5 @@
 class MyPromise {
-  private status: 'pending' | 'fulfilled' | 'rejected'
+  // private status: 'pending' | 'fulfilled' | 'rejected'
 
   constructor(executor) {
     const resolve = () => {}

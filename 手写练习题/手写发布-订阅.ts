@@ -3,7 +3,7 @@ class EventBus {
     this.handlers = {};
   }
 
-  on(title, handler) {
+  on(title: string, handler: Function) {
     if (!this.handlers[title]) {
       this.handlers[title] = [];
     }
@@ -32,15 +32,15 @@ class EventBus {
     console.log('==handlers==', this.handlers[title])
     this.handlers[title]?.forEach((item) => {
       // console.log('==item==', item)
-      item(...args);
+      item({...args});
     });
   }
 }
 
 const events = new EventBus();
 
-const start1Handler = (...e) => {
-  console.log("start1",...e);
+const start1Handler = (e) => {
+  console.log("start1",e[1]);
 };
 const start2Handler = (e) => {
   console.log("start2",e);
