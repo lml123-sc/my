@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>123</div>
+    <img src="../image/image-15.png" alt="" class="img" />
+    <script lang="ts">
+      const imgDom = document.querySelector(".img");
+      console.log("==imgDom==", imgDom);
+
+      let startTime;
+      let elapsedTime = 0;
+
+      imgDom.addEventListener("mouseover", function (event) {
+        startTime = Date.now();
+      });
+
+      imgDom.addEventListener("mouseout", function (event) {
+        elapsedTime += Date.now() - startTime;
+        console.log("鼠标悬浮时长：", elapsedTime, "毫秒");
+        elapsedTime = 0
+      });
+    </script>
+  </body>
+</html>
