@@ -24,6 +24,22 @@
         console.log("鼠标悬浮时长：", elapsedTime, "毫秒");
         elapsedTime = 0
       });
+
+      /** * 当父级框内有多个子级 */
+      // if (domBoxRef.current) {
+      //   domBoxRef.current?.addEventListener("mouseenter", (event) => {
+      //       startTime = Date.now();
+      //   });
+      //   domBoxRef.current?.addEventListener("mouseleave", (event) => {
+      //     // 鼠标确实离开了父元素及其所有子元素
+      //     elapsedTime += Date.now() - startTime;
+      //     sendUtm('exposed', ['', ''], {
+      //       content_view_browsing_duration_s: elapsedTime
+      //     }, 'content-view-s');
+
+      //     elapsedTime = 0;
+      //   });
+      // }
     </script>
   </body>
 </html>
