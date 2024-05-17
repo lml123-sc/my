@@ -3,6 +3,7 @@ import { Menu, Dropdown, message } from 'antd';
 import { get } from 'lodash';
 // import { connect } from 'dva';
 // import { getLoginUrl } from 'src/utils/utils';
+import './index.less'
 
 const Header = (props: any) => {
   const { commonInfo, dispatch } = props;
