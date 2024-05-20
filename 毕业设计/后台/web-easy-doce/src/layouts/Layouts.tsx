@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Header from "./Header";
-import { Routes, Route } from "react-router-dom";
-import About from "../coms/About";
-import Home from "../coms/Home";
-import Counter from "../coms/Counter";
+import About from "../components/About";
+import Home from "../components/Home";
+import Counter from "../components/Counter";
 import { Layout, Menu, MenuProps } from "antd";
 import Sider from "antd/lib/layout/Sider";
 import { Content } from "antd/lib/layout/layout";
@@ -12,8 +11,10 @@ import {
   NotificationOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-
 import "./index.less";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SiderMenu from "./Sider";
+import TabMaterialLibrary from "../routes/TabMaterialLibrary/index";
 
 interface Layouts {}
 
@@ -45,31 +46,25 @@ const items2: MenuProps["items"] = [
 });
 
 const Layouts = (props: any) => {
-  const {} = props;
+  const { history } = props;
 
   return (
-    <div style={{ height: '100%'}}>
-      <Layout style={{ height: '100%'}}>
+    <div style={{ height: "100%" }}>
+      <Layout style={{ height: "100%" }}>
         <Layout.Header style={{ display: "flex", alignItems: "center" }}>
           <Header />
         </Layout.Header>
         <Layout.Content>
-          <Layout style={{ display: 'flex', flexDirection: 'row' }}>
-            <Sider width={200} style={{ height: '100%'}}>
-              <Menu
-                mode="inline"
-                defaultSelectedKeys={["1"]}
-                defaultOpenKeys={["sub1"]}
-                style={{ height: "100%" }}
-                items={items2}
-              />
+          <Layout style={{ display: "flex", flexDirection: "row" }}>
+            <Sider width={200} style={{ height: "100%" }}>
+              <SiderMenu history={history} />
             </Sider>
             <Content style={{ padding: "0 24px", minHeight: 280 }}>
-              <Routes>
-                <Route path="/" element={<Home />}></Route>
-                <Route path="/about" element={<About />}></Route>
-                <Route path="/counter" element={<Counter />}></Route>
-              </Routes>
+              <Router>
+                <Routes>
+                  <Route path="/" element={< TabMaterialLibrary/>}></Route>
+                </Routes>
+              </Router>
             </Content>
           </Layout>
         </Layout.Content>

@@ -4,16 +4,16 @@ import { get } from 'lodash';
 // import { connect } from 'dva';
 // import { getLoginUrl } from 'src/utils/utils';
 import './index.less'
+import { connect } from 'dva';
 
 const Header = (props: any) => {
-  const { commonInfo, dispatch } = props;
-  const { userName = '' } = get(commonInfo, 'userInfo', {});
+  const { example, dispatch } = props;
+  console.log('==example==', example)
 
   const menu = (
     <Menu
       onClick={async ({ key }) => {
         if (key === '1') {
-
           // let target_url= getLoginUrl();
 
           // location.href = `/api/login/logout?target=${encodeURIComponent(
@@ -48,7 +48,7 @@ const Header = (props: any) => {
           onClick={e => e.preventDefault()}
         >
           <div className="user-container">
-            <div className="user-name" title={userName}>{userName}</div>
+            {/* <div className="user-name" title={userName}>{userName}</div> */}
           </div>
         </a>
       </Dropdown>
@@ -59,5 +59,7 @@ const Header = (props: any) => {
  * 原始逻辑：在登录页登陆成功后，将用户信息保存在 localStorage 中，再进行跳转页面。这样刷新页面时，用户信息必定存在。
  * 现在没有使用项目中的登录页，使用采云学院的登陆页，改为在 dva 中进行请求并保存，在 header 中使用。
  */
-export default Header
+export default connect(({ example }) => ({
+  example,
+}))(Header);
 
