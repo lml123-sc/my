@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
-    <iframe src="./index.html" frameborder="0" id="iframeRef"></iframe>
-    
+  <iframe src="./index.html" frameborder="0" id="iframeRef"></iframe>
+  <script lang="ts">
+    const test = { "a": { "n1": 1, "n2": 3 }, "b": { "n1": 2, "n2": 4 }, "c": { "n1": 3, "n2": 5 } }
+    const returnNewList = (data) => {
+      let objectList = {}
+      Object.keys(data).forEach((k) => {
+        Object.keys(data[k]).forEach((value) => {
+          if (!objectList[value]) {
+            objectList[value] = {}
+          }
+          objectList[value][k] = data[k][value]
+        })
+      })
+      console.log('objectList', objectList);
+      return objectList
+    }
+    returnNewList(test)
+  </script>
 </body>
+
 </html>
