@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .box {
+        padding: 20px;
+        border: 1px solid #9747FF;
+        display: flex;
+        width: 50%;
+    }
+
+    .text {
+        height: 4em;
+        padding: 8px;
+        outline: 1px dashed #9747FF;
+        font-family: cursive;
+        border-radius: 4px;
+        width: 50%;
+        overflow-y: auto;
+    }
+
+    .text {
+        animation: check 1s;
+        animation-timeline: scroll(self);
+    }
+    .text {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+    }
+    @keyframes check {
+        from,to {
+            color: #9747FF;
+        }
+    }
+
+
+</style>
+
+<body>
+    <div class="box">
+        <div class="text">
+            欢迎关注前端侦探，这里有一些有趣的、你可能不知道的HTML、CSS、JS小技巧技巧。欢迎关注前端侦探，这里有一些有趣的、你可能不知道的HTML、CSS、JS小技巧技巧。欢迎关注前端侦探，这里有一些有趣的、你可能不知道的HTML、CSS、JS小技巧技巧。
+        </div>
+        <div class="text">欢迎关注前端侦探</div>
+    </div>
+
+</body>
+
+</html>

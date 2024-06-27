@@ -1,45 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div>123</div>
-    <img src="../image/image-15.png" alt="" class="img" />
-    <script lang="ts">
-      const imgDom = document.querySelector(".img");
-      console.log("==imgDom==", imgDom);
 
-      let startTime;
-      let elapsedTime = 0;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<style>
+  .myTable tbody{
+    display: block;
+    height: 252px;
+    width: 900px;
+    overflow: auto;
+    text-align: center;
+  }
+  .myTable thead,tbody tr {
+    display: table;
+    width: 900px;
+    table-layout: fixed;
+  }
+  .myTable thead {
+    background: #E4E8f3;
+    color: black;
+  }
+  .myTable table tr th {
+    text-align: center;
+  } 
+</style>
+<body>
+  <!-- <div>123</div> -->
+  <!-- <img src="../image/image-15.png" alt="" class="img" /> -->
+  <table class="myTable">
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>标题</th>
+        <th>时间</th>
+        <th>部门</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>单独厚度</td>
+        <td>2024-6-18</td>
+        <td>顶顶顶</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>啊实打实的</td>
+        <td>2024-6-18</td>
+        <td>顶顶顶</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>绯闻情妇</td>
+        <td>2024-6-18</td>
+        <td>顶顶顶</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>绯闻情妇</td>
+        <td>2024-6-18</td>
+        <td>顶顶顶</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>绯闻情妇</td>
+        <td>2024-6-18</td>
+        <td>顶顶顶</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>绯闻情妇</td>
+        <td>2024-6-18</td>
+        <td>顶顶顶</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>绯闻情妇</td>
+        <td>2024-6-18</td>
+        <td>顶顶顶</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>绯闻情妇</td>
+        <td>2024-6-18</td>
+        <td>顶顶顶</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>绯闻情妇</td>
+        <td>2024-6-18</td>
+        <td>顶顶顶</td>
+      </tr>
 
-      imgDom.addEventListener("mouseover", function (event) {
-        startTime = Date.now();
-      });
 
-      imgDom.addEventListener("mouseout", function (event) {
-        elapsedTime += Date.now() - startTime;
-        console.log("鼠标悬浮时长：", elapsedTime, "毫秒");
-        elapsedTime = 0
-      });
+      <tr>
+        <td>3</td>
+        <td>绯闻情妇</td>
+        <td>2024-6-18</td>
+        <td>顶顶顶</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>绯闻情妇</td>
+        <td>2024-6-18</td>
+        <td>顶顶顶</td>
+      </tr>
+    </tbody>
+  </table>
+  <script lang="ts">
+    const imgDom = document.querySelector(".img");
+    console.log("==imgDom==", imgDom);
 
-      /** * 当父级框内有多个子级 */
-      // if (domBoxRef.current) {
-      //   domBoxRef.current?.addEventListener("mouseenter", (event) => {
-      //       startTime = Date.now();
-      //   });
-      //   domBoxRef.current?.addEventListener("mouseleave", (event) => {
-      //     // 鼠标确实离开了父元素及其所有子元素
-      //     elapsedTime += Date.now() - startTime;
-      //     sendUtm('exposed', ['', ''], {
-      //       content_view_browsing_duration_s: elapsedTime
-      //     }, 'content-view-s');
+    let startTime;
+    let elapsedTime = 0;
 
-      //     elapsedTime = 0;
-      //   });
-      // }
-    </script>
-  </body>
+    imgDom.addEventListener("mouseover", function (event) {
+      startTime = Date.now();
+    });
+
+    imgDom.addEventListener("mouseout", function (event) {
+      elapsedTime += Date.now() - startTime;
+      console.log("鼠标悬浮时长：", elapsedTime, "毫秒");
+      elapsedTime = 0
+    });
+
+    /** * 当父级框内有多个子级 */
+    // if (domBoxRef.current) {
+    //   domBoxRef.current?.addEventListener("mouseenter", (event) => {
+    //       startTime = Date.now();
+    //   });
+    //   domBoxRef.current?.addEventListener("mouseleave", (event) => {
+    //     // 鼠标确实离开了父元素及其所有子元素
+    //     elapsedTime += Date.now() - startTime;
+    //     sendUtm('exposed', ['', ''], {
+    //       content_view_browsing_duration_s: elapsedTime
+    //     }, 'content-view-s');
+
+    //     elapsedTime = 0;
+    //   });
+    // }
+  </script>
+</body>
+
 </html>
