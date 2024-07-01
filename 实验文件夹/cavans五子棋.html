@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script lang="ts">
+        const Size = 15, Width = 50, SL = Width * (Size + 1)
+        const chess = Array.from({ length: Size }, () => Array(Size).fill(-1))
+        let isBlack = true
+        let moveSteps = 0; // 下棋步数
+        const TOTAL_STEPS = Size * Size;
+        const canvas = document.createElement('canvas')
+        const cxt = canvas.getContext('2d')
+        canvas.height = canvas.width = SL
+        canvas.style.cssText = 'position: absolute; inset: 0; margin: auto; cursor: pointer;'
+        document.body.appendChild(canvas)
+        /** @type {HTMLCanvasElement} */
+        const drawBoard = () => {
+            cxt.fillStyle = '#E4A751'
+            cxt.fillRect(0, 0, SL, SL)
+            for (let i = 0; i < Size; i++) {
+                drawLine(0, i, Size - 1, i)
+                drawLine(i, 0, i, Size - 1)
+            }
+        }
+        const drawLine = (x1, y1, x2, y2, lineWidth = 1, lineColor = '#000000') => {
+            cxt.lineWidth = lineWidth
+            cxt.strokeStyle = lineColor
+            cxt.beginPath()
+            cxt.moveTo(x1 * Width + Width, y1 * Width + Width)
+            cxt.lineTo(x2 * Width + Width, y2 * Width + Width)
+            cxt.stroke()
+        }
+        canvas.onclick = (e) => {
+            let [x, y] = [e.offsetX, e.offsetY].map(p => Math.round(p / Width) - 1)
+            if (chess[x][y] !== -1 || x < 0 || x > Size - 1 || y < 0 || y > Size - 1) return alert('该位置不可落子')
+            drawPiece(x, y, isBlack)
+            chess[x][y] = isBlack ? 1 : 2
+            isWin(x, y, chess[x][y], chess) ? alert(`${isBlack ? '黑棋' : '白棋'}赢了`) : ++moveSteps === TOTAL_STEPS ? alert('游戏结束，平局！') : isBlack = !isBlack;
+        }
+        const drawPiece = (x, y, isBlack) => {
+            cxt.beginPath()
+            cxt.arc(x * Width + Width, y * Width + Width, Width * 0.2, 0, 2 * Math.PI)
+            cxt.closePath()
+            cxt.fillStyle = isBlack ? 'black' : 'white'
+            cxt.fill()
+        }
+        const isWin = (x, y, role, chess) => {
+            for (let [dx, dy] of [[1, 0], [0, 1], [1, 1], [1, -1]]) {
+                let count = 1, i = 0, j = 0
+                while (count < 5 && chess[x + dx * ++i]?.[y + dy * i] === role) count++
+                while (count < 5 && chess[x - dx * ++j]?.[y - dy * j] === role) count++
+                if (count === 5) return i = 4 - j, drawLine(x + dx * i, y + dy * i, x - dx * j, y - dy * j, 5, '#F05459'), true
+            }
+            console.log(false);
+            return false
+        }
+        window.onload = drawBoard()
+    </script>
+</body>
+
+</html>
