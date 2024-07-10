@@ -3,7 +3,7 @@ class EventBus {
     this.handlers = {};
   }
 
-  on(title: string, handler: Function) {
+  on(title, handler) {
     if (!this.handlers[title]) {
       this.handlers[title] = [];
     }
@@ -29,7 +29,6 @@ class EventBus {
   }
 
   emit(title, ...args) {
-    console.log('==handlers==', this.handlers[title])
     this.handlers[title]?.forEach((item) => {
       // console.log('==item==', item)
       item({...args});
