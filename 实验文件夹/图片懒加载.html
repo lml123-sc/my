@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body style="height: 100px;">
+
+    <img src="default.jpg" data-src="../image/image-1.png" alt="">
+    <img src="default.jpg" data-src="../image/image-1.png" alt="">
+    <img src="default.jpg" data-src="../image/image-1.png" alt="">
+    <img src="default.jpg" data-src="../image/image-1.png" alt="">
+    <img src="default.jpg" data-src="../image/image-1.png" alt="">
+    <img src="default.jpg" data-src="../image/image-1.png" alt="">
+    <img src="default.jpg" data-src="../image/image-1.png" alt="">
+    <img src="default.jpg" data-src="../image/image-1.png" alt="">
+    <img src="default.jpg" data-src="../image/image-1.png" alt="">
+
+
+
+  <script>
+    let imgs = document.querySelectorAll('img[data-src]'), count = 0
+    // 首次加载
+    console.log('imgs', imgs);
+    lazyLoad()
+    // 通过监听 scroll 事件来判断图片是否到达视口，别忘了防抖节流
+    window.addEventListener('scroll', lazyLoad)
+
+    function lazyLoad() {
+      for (let i = count; i < imgs.length; i++) {
+        console.log('imgs[i].getBoundingClientRect().top', imgs[i]);
+        console.log('document.documentElement.clientHeight', document.documentElement.clientHeight);
+        if (imgs[i].getBoundingClientRect().top < document.documentElement.clientHeight) {
+          if (imgs[i].getAttribute("src") !== "default.jpg") continue;
+          imgs[i].src = imgs[i].getAttribute("data-src")
+          count++
+        }
+      }
+    }
+  </script>
+
+</body>
+
+</html>
