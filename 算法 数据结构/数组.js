@@ -113,8 +113,87 @@ const getSum2 = (sum) => {
 
 空间复杂度O(n)
 */
-const getSum3 = (nums,target) => {
-  
-}
-const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-console.log("change(arr)", getSum2(15));
+const getSum3 = (nums, target) => {};
+/**
+* 给定一个整数数组 nums，将数组中的元素向右轮转 k 个位置，其中 k 是非负数。
+
+ 
+
+示例 1:
+
+输入: nums = [1,2,3,4,5,6,7], k = 3
+输出: [5,6,7,1,2,3,4]
+解释:
+向右轮转 1 步: [7,1,2,3,4,5,6]
+向右轮转 2 步: [6,7,1,2,3,4,5]
+向右轮转 3 步: [5,6,7,1,2,3,4]
+示例 2:
+
+输入：nums = [-1,-100,3,99], k = 2
+输出：[3,99,-1,-100]
+解释: 
+向右轮转 1 步: [99,-1,-100,3]
+向右轮转 2 步: [3,99,-1,-100]
+*/
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var rotate = function (nums, k) {
+  const n = nums.length;
+  const newArr = new Array(n);
+  for (let i = 0; i < n; ++i) {
+    newArr[(i + k) % n] = nums[i];
+  }
+  for (let i = 0; i < n; ++i) {
+    nums[i] = newArr[i];
+  }
+
+  return newArr;
+};
+
+/**
+* 给你一个字符串 s，由若干单词组成，单词前后用一些空格字符隔开。返回字符串中 最后一个 单词的长度。
+
+单词 是指仅由字母组成、不包含任何空格字符的最大
+子字符串
+。
+
+ 
+
+示例 1：
+
+输入：s = "Hello World"
+输出：5
+解释：最后一个单词是“World”，长度为 5。
+示例 2：
+
+输入：s = "   fly me   to   the moon  "
+输出：4
+解释：最后一个单词是“moon”，长度为 4。
+示例 3：
+
+输入：s = "luffy is still joyboy"
+输出：6
+解释：最后一个单词是长度为 6 的“joyboy”。
+*/
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLastWord = function (s) {
+  let count = 0;
+  let foundWord = false;
+  for (let i = s.length -1; i >= 0 ; i--) {
+    if (s[i] === " ") {
+      if (foundWord) break;
+    } else {
+      count++;
+      foundWord = true;
+    }
+  }
+  return count;
+};
+const arr = "luffy is still joyboy";
+console.log("lengthOfLastWord(arr)", lengthOfLastWord(arr));
