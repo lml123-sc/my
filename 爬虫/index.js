@@ -3,6 +3,9 @@ const app = express();
 const superagent = require("superagent");
 const cheerio = require("cheerio");
 const puppeteer = require("puppeteer");
+const axios = require("axios");
+const fs = require("fs-extra");
+const path = require("path");
 
 let hotNews = []; // 热点新闻
 let localNews = []; // 本地新闻
@@ -53,17 +56,48 @@ fetchPageContent("https://www.pokemon.cn/play/pokedex/")
     const $ = cheerio.load(html);
     // 这里可以继续处理获取的内容
     $(".pokemon-list .pokemon-list--box--wrapper a").each((index, item) => {
-        const img = $(item).find("img").attr("src")
+      const img = $(item).find("img").attr("src");
       let newPokemon = {
-        imgUrl: `https://www.pokemon.cn${img}` ,
+        imgUrl: `https://www.pokemon.cn${img}`,
         name: $(item).find(".pokemon-list--box__name").text(),
       };
       localNews.push(newPokemon);
     });
+    const downloadFolder = path.join(__dirname, "PokemonImages");
+    fs.ensureDir(downloadFolder)
+      .then(() => {
+        console.log(`Download folder created: ${downloadFolder}`);
+
+        localNews.forEach((pokemon) => {
+          const imagePath = path.join(downloadFolder, `${pokemon.name}.png`);
+          axios({
+            method: "get",
+            url: pokemon.imgUrl,
+            responseType: "stream",
+          })
+            .then((response) => {
+              response.data
+                .pipe(fs.createWriteStream(imagePath))
+                .on("finish", () => {
+                  console.log(`Image downloaded: ${imagePath}`);
+                });
+            })
+            .catch((error) => {
+              console.error(
+                `Error downloading image: ${pokemon.imgUrl}`,
+                error
+              );
+            });
+        });
+      })
+      .catch((error) => {
+        console.error("Error creating download folder:", error);
+      });
   })
   .catch((error) => {
     console.error("Error fetching page:", error);
   });
+
 app.get("/", function (req, res) {
   res.send(hotNews);
 });
