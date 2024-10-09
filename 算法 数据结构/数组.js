@@ -300,5 +300,272 @@ var romanToInt = function (s) {
   }
   return result;
 };
-const arr = "III"; // 58
-console.log("lengthOfLastWord(arr)", romanToInt(arr));
+/**
+* 给你一个非负整数数组 nums ，你最初位于数组的 第一个下标 。数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+判断你是否能够到达最后一个下标，如果可以，返回 true ；否则，返回 false 。
+
+ 
+
+示例 1：
+
+输入：nums = [2,3,1,1,4]
+输出：true
+解释：可以先跳 1 步，从下标 0 到达下标 1, 然后再从下标 1 跳 3 步到达最后一个下标。
+示例 2：
+
+输入：nums = [3,2,1,0,4]
+输出：false
+解释：无论怎样，总会到达下标为 3 的位置。但该下标的最大跳跃长度是 0 ， 所以永远不可能到达最后一个下标。
+*/
+var canJump = function (nums) {
+  let maxReach = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (i > maxReach) {
+      return false;
+    }
+    maxReach = Math.max(maxReach, i + nums[i]);
+    if (maxReach >= nums.length - 1) {
+      return true;
+    }
+  }
+  return false;
+};
+/**
+* 给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串的第一个匹配项的下标（下标从 0 开始）。如果 needle 不是 haystack 的一部分，则返回  -1 。
+
+ 
+
+示例 1：
+
+输入：haystack = "sadbutsad", needle = "sad"
+输出：0
+解释："sad" 在下标 0 和 6 处匹配。
+第一个匹配项的下标是 0 ，所以返回 0 。
+示例 2：
+
+输入：haystack = "leetcode", needle = "leeto"
+输出：-1
+解释："leeto" 没有在 "leetcode" 中出现，所以返回 -1 
+*/
+var strStr = function (haystack, needle) {
+  if (needle.length === 0) return 0;
+  for (let i = 0; i <= haystack.length - needle.length; i++) {
+    let match = true;
+    for (let j = 0; j < needle.length; j++) {
+      if (haystack[i + j] != needle[j]) {
+        match = false;
+        break;
+      }
+    }
+    if (match) return i;
+  }
+  return -1;
+};
+/**
+* 将一个给定字符串 s 根据给定的行数 numRows ，以从上往下、从左到右进行 Z 字形排列。
+
+比如输入字符串为 "PAYPALISHIRING" 行数为 3 时，排列如下：
+
+P   A   H   N
+A P L S I I G
+Y   I   R
+之后，你的输出需要从左往右逐行读取，产生出一个新的字符串，比如："PAHNAPLSIIGYIR"。
+
+请你实现这个将字符串进行指定行数变换的函数：
+
+string convert(string s, int numRows);
+ 
+
+示例 1：
+
+输入：s = "PAYPALISHIRING", numRows = 3
+输出："PAHNAPLSIIGYIR"
+示例 2：
+输入：s = "PAYPALISHIRING", numRows = 4
+输出："PINALSIGYAHRPI"
+解释：
+P     I    N
+A   L S  I G
+Y A   H R
+P     I
+示例 3：
+
+输入：s = "A", numRows = 1
+输出："A"
+*/
+var convert = function (s, numRows) {
+  if (numRows === 1 || numRows >= s.length) {
+    return s;
+  }
+  let rows = new Array(numRows).fill("");
+  let currentRow = 0;
+  let goingDown = false;
+
+  for (let char of s) {
+    rows[currentRow] += char;
+    if (currentRow === 0 || currentRow === numRows - 1) {
+      goingDown = !goingDown;
+    }
+    currentRow += goingDown ? 1 : -1;
+  }
+  return rows.join("");
+};
+/**
+* 给你一个字符串 s ，请你反转字符串中 单词 的顺序。
+
+单词 是由非空格字符组成的字符串。s 中使用至少一个空格将字符串中的 单词 分隔开。
+
+返回 单词 顺序颠倒且 单词 之间用单个空格连接的结果字符串。
+
+注意：输入字符串 s中可能会存在前导空格、尾随空格或者单词间的多个空格。返回的结果字符串中，单词间应当仅用单个空格分隔，且不包含任何额外的空格。
+
+ 
+
+示例 1：
+
+输入：s = "the sky is blue"
+输出："blue is sky the"
+示例 2：
+
+输入：s = "  hello world  "
+输出："world hello"
+解释：反转后的字符串中不能存在前导空格和尾随空格。
+示例 3：
+
+输入：s = "a good   example"
+输出："example good a"
+解释：如果两个单词间有多余的空格，反转后的字符串需要将单词间的空格减少到仅有一个。
+*/
+var reverseWords = function (s) {
+  return s
+    .split(" ")
+    .filter((item) => item !== "")
+    .reverse()
+    .join(" ");
+};
+/**
+* 在一条环路上有 n 个加油站，其中第 i 个加油站有汽油 gas[i] 升。
+
+你有一辆油箱容量无限的的汽车，从第 i 个加油站开往第 i+1 个加油站需要消耗汽油 cost[i] 升。
+你从其中的一个加油站出发，开始时油箱为空。
+
+给定两个整数数组 gas 和 cost ，如果你可以按顺序绕环路行驶一周，则返回出发时加油站的编号，
+否则返回 -1 。如果存在解，则 保证 它是 唯一 的。
+
+ 
+
+示例 1:
+
+输入: gas = [1,2,3,4,5], cost = [3,4,5,1,2]
+输出: 3
+解释:
+从 3 号加油站(索引为 3 处)出发，可获得 4 升汽油。此时油箱有 = 0 + 4 = 4 升汽油
+开往 4 号加油站，此时油箱有 4 - 1 + 5 = 8 升汽油
+开往 0 号加油站，此时油箱有 8 - 2 + 1 = 7 升汽油
+开往 1 号加油站，此时油箱有 7 - 3 + 2 = 6 升汽油
+开往 2 号加油站，此时油箱有 6 - 4 + 3 = 5 升汽油
+开往 3 号加油站，你需要消耗 5 升汽油，正好足够你返回到 3 号加油站。
+因此，3 可为起始索引。
+示例 2:
+
+输入: gas = [2,3,4], cost = [3,4,3]
+输出: -1
+解释:
+你不能从 0 号或 1 号加油站出发，因为没有足够的汽油可以让你行驶到下一个加油站。
+我们从 2 号加油站出发，可以获得 4 升汽油。 此时油箱有 = 0 + 4 = 4 升汽油
+开往 0 号加油站，此时油箱有 4 - 3 + 2 = 3 升汽油
+开往 1 号加油站，此时油箱有 3 - 3 + 3 = 3 升汽油
+你无法返回 2 号加油站，因为返程需要消耗 4 升汽油，但是你的油箱只有 3 升汽油。
+因此，无论怎样，你都不可能绕环路行驶一周。
+*/
+var canCompleteCircuit = function (gas, cost) {
+  let totalGas = 0;
+  let totalCost = 0;
+  let start = 0;
+  let tank = 0;
+  for (let i = 0; i < gas.length; i++) {
+    totalGas += gas[i];
+    totalCost += cost[i];
+    tank += gas[i] - cost[i];
+    if (tank < 0) {
+      start = i + 1;
+      tank = 0;
+    }
+  }
+  return totalGas < totalCost ? -1 : start;
+};
+/**
+* 给定一个长度为 n 的 0 索引整数数组 nums。初始位置为 nums[0]。
+
+每个元素 nums[i] 表示从索引 i 向前跳转的最大长度。换句话说，如果你在 nums[i] 处，
+你可以跳转到任意 nums[i + j] 处:
+
+0 <= j <= nums[i] 
+i + j < n
+返回到达 nums[n - 1] 的最小跳跃次数。生成的测试用例可以到达 nums[n - 1]。
+
+
+示例 1:
+
+输入: nums = [2,3,1,1,4]
+输出: 2
+解释: 跳到最后一个位置的最小跳跃数是 2。
+     从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。
+示例 2:
+
+输入: nums = [2,3,0,1,4]
+输出: 2
+*/
+var jump = function (nums) {
+  let end = 0;
+  let maxReach = 0;
+  let step = 0;
+  for (let i = 0; i < nums.length - 1; i++) {
+    maxReach = Math.max(maxReach, i + nums[i]);
+    if (i === end) {
+      end = maxReach;
+      step++;
+    }
+    if (end >= nums.length - 1) {
+      break;
+    }
+  }
+  return end >= nums.length - 1 ? step : -1;
+};
+/**
+* 给你一个整数数组 nums，返回 数组 answer ，其中 answer[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积 。
+
+题目数据 保证 数组 nums之中任意元素的全部前缀元素和后缀的乘积都在  32 位 整数范围内。
+
+请 不要使用除法，且在 O(n) 时间复杂度内完成此题。
+
+ 
+
+示例 1:
+
+输入: nums = [1,2,3,4]
+输出: [24,12,8,6]
+示例 2:
+
+输入: nums = [-1,1,0,-3,3]
+输出: [0,0,9,0,0]
+*/
+var productExceptSelf = function(nums) {
+  const n = nums.length;
+  const result = new Array(n);
+  let leftProduct = 1;
+  for (let i = 0; i < n; i++) {
+    result[i] = leftProduct;
+    leftProduct *= nums[i];
+  }
+   // 计算后缀乘积数组
+   let rightProduct = 1;
+   for (let i = n - 1; i >= 0; i--) {
+     result[i] *= rightProduct;
+     rightProduct *= nums[i];
+   }
+  return result;
+};
+const arr = [1,2,3,4];
+console.log("", productExceptSelf(arr));
